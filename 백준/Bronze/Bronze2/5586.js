@@ -4,12 +4,10 @@ const chkWord = (word, check) => {
   let i = 0;
   let cnt = 0;
   while (i < word.length) {
-    if (i < word.length) {
-      if (word[i] == check[0]) {
-        if (word[i + 1] == check[1]) {
-          if (word[i + 2] == check[2]) {
-            cnt += 1;
-          }
+    if (word[i] == check[0]) {
+      if (word[i + 1] == check[1]) {
+        if (word[i + 2] == check[2]) {
+          cnt += 1;
         }
       }
     }
