@@ -35,3 +35,10 @@ const input = fs.readFileSync("./index.txt").toString().trim(" ").split("\n");
 //   const arr = input[i].split(" ").map((item) => +item);
 //   num += 2;
 // }
+
+result.sort((a, b) => {
+  if (a[1] < b[1]) return -1;
+  if (a[1] > b[1]) return 1;
+  if (a[2] < b[2]) return -1;
+  if (a[2] > b[2]) return 1;
+});
