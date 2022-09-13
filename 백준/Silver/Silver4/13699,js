@@ -1,0 +1,17 @@
+const input = require("fs")
+  .readFileSync("././index.txt")
+  .toString()
+  .trim()
+  .split("\n");
+
+const N = Number(input[0]);
+let dp = [...new Array(N + 1)].fill(0);
+dp[0] = 1;
+
+for (let i = 1; i <= N; i++) {
+  for (let j = 0; j < i; j++) {
+    dp[i] += dp[j] * dp[i - j - 1];
+  }
+}
+
+console.log(dp[N]);

@@ -2,7 +2,6 @@ const S = "aaabbbbcdddd";
 
 const Zip = (s) => {
   const list = [];
-  let check = false;
   let cnt = 0;
   let X = s[0];
   for (let i = 0; i < s.length; i++) {
