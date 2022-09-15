@@ -1,13 +1,26 @@
-function solution(s) {
-  var answer = true;
-  let cnt = 0;
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === "(") cnt += 1;
-    else if (s[i] === ")") cnt -= 1;
-    if (cnt < 0) break;
+function solution(dartResult) {
+  let tmp = String(dartResult);
+  var answer = 0;
+  let result = [];
+  let NUM = "";
+  for (let j = 0; j < tmp.length; j++) {
+    if (isNaN(tmp[j]) === false) NUM += tmp[j];
+    else {
+      let k = result.length - 1;
+      if (tmp[j] === "S") result.push(Number(NUM));
+      else if (tmp[j] === "D") result.push(Number(NUM) ** 2);
+      else if (tmp[j] === "T") result.push(Number(NUM) ** 3);
+      else if (tmp[j] === "*") {
+        if (k > 0) {
+          result[k] *= 2;
+          result[k - 1] *= 2;
+        } else result[k] *= 2;
+      } else if (tmp[j] === "#") result[k] *= -1;
+
+      NUM = "";
+    }
   }
-  if (cnt === 0) answer = true;
-  else answer = false;
+  answer = result.reduce((a, b) => a + b);
 
   return answer;
 }
