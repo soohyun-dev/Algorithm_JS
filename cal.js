@@ -1,26 +1,27 @@
-let d_cnt = 0;
-let c_cnt = 0;
-const Change = (k) => {
-  let B = k.length;
-  let ck = k.filter((v) => v === "1");
-  let A = ck.length;
-  let N = B - A;
-  let result = String(A.toString(2)).split("");
-  d_cnt += N;
-  return result;
+const RotateRight = (nums, a) => {
+  if (nums.length < a) a = a % nums.length;
+  let spliced = nums.splice(nums.length - a, nums.length);
+  nums = [...spliced, ...nums];
+  return nums;
 };
 
-function solution(s) {
-  var answer = [];
-  let tmp = s.split("");
-  while (true) {
-    if (tmp.includes("0")) {
-      tmp = Change(tmp);
-      c_cnt += 1;
-    } else break;
-  }
-  answer = [c_cnt, d_cnt];
-  return answer;
-}
+const RotateLeft = (nums, a) => {
+  if (nums.length < a) a %= nums.length;
+  let spliced = nums.splice(0, a);
+  nums = [...nums, ...spliced];
+  return nums;
+};
 
-console.log(solution("110010101001"));
+arr = [1, 2, 3, 4, 5];
+
+arr = RotateRight(arr, 2); // [ 3, 4, 5, 1, 2 ]
+console.log(arr);
+
+arr = RotateLeft(arr, 3); // [ 5, 1, 2, 3, 4 ]
+console.log(arr);
+
+arr = RotateRight(arr, 7); // [ 2, 3, 4, 5, 1 ]
+console.log(arr);
+
+arr = RotateLeft(arr, 8); // [ 4, 5, 1, 2, 3 ]
+console.log(arr);
