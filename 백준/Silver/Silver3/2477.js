@@ -12,10 +12,7 @@ input.map((v) => {
   arr.push(b);
 });
 
-let MAX = 0;
-let MIN = 0;
-let idx = 0;
-let tmp = 0;
+let [MAX, MIN, idx, tmp] = [0, 0, 0, 0];
 
 for (let i = 0; i < 6; i++) {
   tmp = arr[i] * arr[(i + 1) % 6];
