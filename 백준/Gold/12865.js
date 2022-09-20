@@ -1,21 +1,24 @@
 const input = require("fs")
-  .readFileSync("././index.txt")
+  .readFileSync("/dev/stdin")
   .toString()
   .trim()
   .split("\n");
 
-const [N, K] = input.shift().split(" ");
-let check = [...new Array(Number(K) + 1)].fill(0);
+const cal = (Arr) => {
+  Arr.map((v) => {
+    let [a, b] = v;
+    for (let i = K; i > a - 1; i--)
+      check[i] = Math.max(check[i], check[i - a] + b);
+  });
+  return check[K];
+};
+
+const [N, K] = input.shift().split(" ").map(Number);
+let check = [...new Array(K + 1)].fill(0);
 let arr = [];
 input.map((v) => {
   let [w, g] = v.trim().split(" ").map(Number);
   arr.push([w, g]);
 });
 
-arr.map((v) => {
-  let [a, b] = v;
-  for (let i = Number(K); i > a - 1; i--)
-    check[i] = Math.max(check[i], check[i - a] + b);
-});
-
-console.log(check[check.length - 1]);
+console.log(cal(arr));
