@@ -96,3 +96,41 @@ function solution(str1, str2) {
   if (intsec === union) return 65536;
   else return parseInt((intsec / union) * 65536);
 }
+
+function solution(s) {
+  let arr = s.split(/[}]/);
+  let A = [];
+  for (let i of arr) {
+    let B = [];
+    let tmp = i.split(/[{,,]/);
+    for (let j of tmp) if (!isNaN(j) && j !== "") B.push(Number(j));
+    if (B.length !== 0) A.push(B);
+  }
+  A.sort((a, b) => a.length - b.length);
+  let result = [];
+  for (let j of A) result.push(...j.filter((v) => !result.includes(v)));
+
+  return result;
+}
+
+function solution(priorities, location) {
+  let arr = [...new Array(priorities.length)].map((v, i) => [priorities[i], i]);
+  let result = [];
+  priorities = priorities.sort((a, b) => b - a);
+  let idx = 0;
+  while (arr.length !== 0) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[0][0] !== priorities[0]) {
+        let tmp = arr[0];
+        arr = [...arr.splice(1), tmp];
+      } else {
+        priorities = priorities.splice(1);
+        result = [...result, arr[0]];
+        arr = arr.splice(1);
+        break;
+      }
+    }
+  }
+  for (let j = 0; j < result.length; j++)
+    if (result[j][1] === location) return j + 1;
+}
