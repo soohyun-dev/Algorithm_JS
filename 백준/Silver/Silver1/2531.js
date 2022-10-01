@@ -8,8 +8,7 @@ const input = require("fs")
 const [N, d, k, c] = input.shift();
 const sushi = input.map((v) => Number(v));
 function solution(N, d, k, c, sushi) {
-  let MAX = 0;
-  let tmp = 0;
+  let [MAX, tmp] = [0, 0];
   for (let i = 0; i < N; i++) {
     if (i + k >= sushi.length) {
       tmp = [...sushi.slice(i), ...sushi.slice(0, i + k - sushi.length), c];
