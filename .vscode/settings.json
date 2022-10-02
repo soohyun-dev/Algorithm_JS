@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {},
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": ["variable.other.constant"],
+        "settings": {
+          "foreground": "#fb836d"
+        }
+      }
+    ]
+  }
+}
