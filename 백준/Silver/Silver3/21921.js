@@ -24,5 +24,4 @@ function solution(N, X, visited) {
 }
 
 const result = solution(N, X, visited);
-if (result[0] === 0) console.log("SAD");
-else result.map((v) => console.log(v));
+result[0] === 0 ? console.log("SAD") : result.map((v) => console.log(v));
