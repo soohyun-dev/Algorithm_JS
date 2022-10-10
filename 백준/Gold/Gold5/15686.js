@@ -15,7 +15,6 @@ function solution(N, M, MAP) {
     for (let j = 0; j < N; j++) {
       if (MAP[i][j] === 2) {
         chicken.push([i, j]);
-        MAP[i][j] = 0;
       } else if (MAP[i][j] === 1) house.push([i, j]);
     }
   const getDist = (arr, [x, y]) => {
@@ -31,7 +30,8 @@ function solution(N, M, MAP) {
   let combination = new Array(chicken.length).fill(false);
   const check = (idx, cnt) => {
     if (cnt === M) {
-      let [result, total] = [[], []];
+      let result = [];
+      let total = 0;
       for (let i = 0; i < chicken.length; i++)
         if (combination[i] === true) result.push(i);
       house.map((v) => (total += getDist(result, v)));
