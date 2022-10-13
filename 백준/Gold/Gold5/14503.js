@@ -47,3 +47,8 @@ function solution(N, M, r, c, d, MAP) {
   return cnt;
 }
 console.log(solution(N, M, r, c, d, MAP));
+
+// 0   0,-1  1,0  0,1  -1,0
+// 1   -1,0  0,-1  1,0  0,1
+// 2   0,1  -1,0   0,-1   1,0
+// 3   1,0  0,1   -1,0  0,-1
