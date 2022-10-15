@@ -1,11 +1,10 @@
 const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
 
-const T = input.shift();
-const Arr = input[0].split("");
-const Nums = [];
-for (let i = 1; i <= +T; i++) Nums.push(Number(input[i]));
+let [T, Arr, ...Nums] = input;
+Nums = Nums.map((v) => Number(v));
 
 function solution(T, Arr, Nums) {
+  Arr = Arr.split("");
   let [cal, idx, result] = [[], 65, 0];
   let dict = {};
   for (let i = 0; i < Nums.length; i++) {
