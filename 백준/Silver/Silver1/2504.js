@@ -18,7 +18,7 @@ function solution(bracket) {
         console.log(0);
         exit(0);
       }
-      if (str[Str.length - 1] === "(") str += `${num})`;
+      if (str[str.length - 1] === "(") str += `${num})`;
       else str += `)*${num}`;
     }
   });
@@ -27,6 +27,3 @@ function solution(bracket) {
 }
 
 console.log(solution(bracket));
-
-// [()[()[()]]]
-// ( ( 2) +( ( 2) +( ( 2) )*3 )*3 )*3
