@@ -8,14 +8,10 @@ const input = require("fs")
 const [T, ...Pwds] = input;
 function solution(T, Pwds) {
   Pwds.map((pwd) => {
-    let answer = [];
-    let tmp = [];
+    let [answer, tmp] = [[], []];
     pwd.split("").map((v) => {
       if (v === "<") {
-        if (answer.length !== 0) {
-          let word = answer.pop();
-          tmp.push(word);
-        }
+        if (answer.length !== 0) tmp.push(answer.pop());
       } else if (v === ">") {
         if (tmp.length !== 0) answer.push(tmp.pop());
       } else if (v === "-") {
