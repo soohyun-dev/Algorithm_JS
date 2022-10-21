@@ -17,26 +17,29 @@ const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
   .trim()
-  .split("\n");
+  .split("\n")
+  .map((v) => v.trim());
 
 for (let i = 1; i <= Number(input[0]); i++) {
   let [S, N, Nums] = [
     input[i * 3 - 2],
     Number(input[i * 3 - 1]),
-    input[i * 3].split(/\D/g).filter((v) => v !== ""),
+    input[i * 3].slice(1, input[i * 3].length - 1).split(","),
   ];
-  let RUR = false;
-  let check = true;
+  let [RUR, check, startIdx, delCnt] = [false, true, 0, 0];
   if (N === 0) Nums = [];
   S.split("").map((v) => {
     if (v === "R") {
       RUR = !RUR;
     } else if (v === "D") {
-      if (Nums.length === 0) check = false;
-      if (RUR) Nums.pop();
-      else Nums = Nums.splice(1);
+      if (startIdx + delCnt >= Nums.length) check = false;
+      if (RUR) {
+        Nums.pop();
+        delCnt += 1;
+      } else startIdx += 1;
     }
   });
+  Nums = Nums.slice(startIdx, Nums.length);
   if (RUR) Nums.reverse();
   console.log(check === true ? "[" + Nums.join(",") + "]" : "error");
 }
