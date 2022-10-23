@@ -1,8 +1,6 @@
 const { exit } = require("process");
 
-const input = require("fs").readFileSync("/dev/stdin").toString().trim();
-
-const bracket = input;
+const input = require("fs").readFileSync("././index.txt").toString().trim();
 
 function solution(bracket) {
   let [cal, str, before, num] = [[], "", "", 0];
@@ -21,9 +19,10 @@ function solution(bracket) {
       if (str[str.length - 1] === "(") str += `${num})`;
       else str += `)*${num}`;
     }
+    console.log(str);
   });
   if (cal.length !== 0) return 0;
   return eval(str);
 }
 
-console.log(solution(bracket));
+console.log(solution(input));

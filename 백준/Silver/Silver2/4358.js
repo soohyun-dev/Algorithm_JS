@@ -5,19 +5,14 @@ const input = require("fs")
   .split("\n")
   .map((v) => v.trim());
 
-const [...Trees] = input;
-
 function solution(Trees) {
   dict = {};
   Trees.map((tree) => {
-    if (dict[tree]) dict[tree] += 1;
-    else dict[tree] = 1;
+    dict[tree] ? (dict[tree] += 1) : (dict[tree] = 1);
   });
-  Trees.sort();
-  sortedTrees = [...new Set(Trees)];
-  sortedTrees.map((tree) => {
+  [...new Set(Trees)].sort().map((tree) => {
     console.log(tree, ((dict[tree] / Trees.length) * 100).toFixed(4));
   });
 }
 
-solution(Trees);
+solution(input);
