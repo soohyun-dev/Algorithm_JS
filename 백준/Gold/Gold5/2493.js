@@ -19,6 +19,7 @@ function solution(T, nums) {
     }
     store.push([num, idx]);
     idx += 1;
+    console.log();
   });
 
   return answer.join(" ");
