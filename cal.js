@@ -1,28 +1,13 @@
-function problem2(cryptogram) {
-  function deleteRepeat(words) {
-    let [newWords, check, bool] = [[], false, false];
-    words.split("").map((word) => {
-      if (newWords[newWords.length - 1] === word) {
-        [check, bool] = [true, true];
-      } else {
-        if (check === true) {
-          newWords.pop();
-          check = false;
-        }
-        newWords.push(word);
-      }
-    });
-    if (check === true) newWords.pop();
-    return [newWords.join(""), bool];
-  }
-  let [checkWord, result, repeat] = [cryptogram, "", false];
+const N = 40;
+let cnt = 0;
 
-  while (true) {
-    [result, repeat] = deleteRepeat(checkWord);
-    if (!repeat) break;
-    checkWord = result;
+for (let i = 1; i <= N; i++) {
+  cnt++;
+  if (i % 3 === 0 || (i % 10) % 3 === 0 || (i % 100) % 3 === 0) {
+    cnt++;
+    if (cnt % 3 === 0 || (cnt % 10) % 3 === 0 || (cnt % 100) % 3 === 0) {
+      cnt++;
+    }
   }
-  return result;
+  console.log(cnt);
 }
-
-console.log(problem2("browoanoommnaon"));
