@@ -1,7 +1,3 @@
-function solution(a) {
-  a += 1;
-
-  return a;
-}
-
-console.log(solution(2));
+let answer = [1, 2, 3];
+answer = answer.slice(0, 5);
+console.log(answer);
