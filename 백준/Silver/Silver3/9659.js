@@ -19,5 +19,5 @@ const input = require("fs").readFileSync("/dev/stdin").toString().trim();
 function solution(N) {
   return N % 2 ? "SK" : "CY";
 }
-
+console.log(1);
 console.log(solution(Number(input)));
