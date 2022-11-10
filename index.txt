@@ -1,9 +1,7 @@
-8
-1 8
-3 9
-2 2
-4 1
-6 4
-10 10
-9 7
-7 6
+1
+toot woof wa ow ow ow pa blub blub pa toot pa blub pa pa ow pow toot
+dog goes woof
+fish goes blub
+elephant goes toot
+seal goes ow
+what does the fox say?
