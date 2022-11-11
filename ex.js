@@ -1,44 +1,54 @@
-const fs = require("fs");
+const { Console } = require("@woowacourse/mission-utils");
+const Exception = require("./error/exception");
+const PurchaseError = require("./error/purchase");
+const WinNumberError = require("./error/winNumber");
+const ChangeLotto = require("./ChangeLotto");
 
-// 1. 입력이 한 개일 때
-// const input=fs.readFileSync('/dev/stdin').toString().trim();
+const { COMMAND } = require("./utils/constant");
 
-// 2. 공백으로 구분되어있는 여러개의 값들을 한 줄로 입력 받을 때
-// const input=fs.readFilseSync('/dev/stdin').toString().trim().split(' ');
+class Lotto {
+  #numbers;
+  #exception;
 
-// 3. 여러줄을 입력받을 때
-// const input=fs.readlFileSync('/dev/stdin').toString().trim().split('\n');
+  constructor(numbers) {
+    this.#numbers = numbers;
+    this.#exception = new Exception();
+    this.changeLotto = new ChangeLotto();
+    this.input = 0;
+  }
 
-// 4. 첫 줄에 입력될 갯수에 대한 N이 주어지고,
-//    두 번째 줄에서 공백으로 구분된 N개의 입력을 받을 때
-// const input = fs.readFileSync("./index.txt").toString().trim().split("\n");
-// const arr = input[1].split(" ").map((el) => Number(el));
+  print(message) {
+    Console.print(message);
+  }
 
-// 5. 첫 줄에 입력될 행 수에 대한 N 이 주어지고,
-//    두 번째 줄 부터 N+1번째 줄까지 공백으로 구분된 입력이 주어질 때
-// const input = fs.readFileSync("./index.txt").toString().trim().split("\n");
-// const cnt = Number(input[0]);
-// const arr = [];
-// for (let i = 1; i <= cnt; i++) {
-//   arr.push(input[i]);
-// }
+  duplicateCheck(allow) {
+    const numbersLength = [...new Set(this.#numbers)].length;
+    if (numbersLength !== UNIT.LOTTO_LENGTH) {
+      return false;
+    }
 
-// console.log(arr);
+    return allow;
+  }
 
-// 6. 첫 줄에 테스트 케이스의 개수가 주어짐.
-//    이후 각 테스트 케이스 첫 줄에 N 이 입력되고, N개의 자연수가 주어질 때
-const input = fs.readFileSync("./index.txt").toString().trim(" ").split("\n");
-// const cnt = Number(input[0]);
-// var num = 1;
-// for (let i = 2; i <= cnt * 2; i += 2) {
-//   const N = input[num];
-//   const arr = input[i].split(" ").map((item) => +item);
-//   num += 2;
-// }
+  checkInput() {
+    if (duplicateCheck(true)) throw new Error(ERROR.SIX_CNT);
+    return true;
+  }
 
-result.sort((a, b) => {
-  if (a[1] < b[1]) return -1;
-  if (a[1] > b[1]) return 1;
-  if (a[2] < b[2]) return -1;
-  if (a[2] > b[2]) return 1;
-});
+  askWinNumber() {
+    Console.readLine(`\n${COMMAND.WIN}\n`, (input) => {
+      this.#exception.isAllow(new WinNumberError(input));
+    });
+  }
+
+  start() {
+    Console.readLine(`${COMMAND.BUY}\n`, (input) => {
+      this.#exception.isAllow(new PurchaseError(input));
+      this.input = input;
+      this.changeLotto.change(this.input);
+      this.askWinNumber();
+    });
+  }
+}
+
+module.exports = Lotto;
