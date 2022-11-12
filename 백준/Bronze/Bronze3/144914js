@@ -1,0 +1,7 @@
+const input = require("fs").readFileSync("/dev/stdin").toString();
+
+function solution(N) {
+  return N.toString(9);
+}
+
+console.log(solution(Number(input)));
