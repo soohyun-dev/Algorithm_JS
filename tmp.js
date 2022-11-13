@@ -1,1 +1,1 @@
-console.log("a" > 45);
+console.log(Number(-19));
