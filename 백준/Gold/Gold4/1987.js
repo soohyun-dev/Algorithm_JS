@@ -21,16 +21,16 @@ input.shift();
 const [...input_board] = input;
 
 function solution(R, C, board) {
-  const start = (x, y, cnt) => {
+  const start = (x, y, move) => {
     isPass[board[x][y]] = true;
-    if (cnt > MAX) MAX = cnt;
+    if (move > MAX) MAX = move;
     for (let i = 0; i < 4; i++) {
       const [mx, my] = [x + dr_x[i], y + dr_y[i]];
       if (mx < 0 || mx >= R || my < 0 || my >= C) continue;
       if (isPass[board[mx][my]]) continue;
       else {
         isPass[board[mx][my]] = true;
-        start(mx, my, cnt + 1);
+        start(mx, my, move + 1);
         isPass[board[mx][my]] = false;
       }
     }
