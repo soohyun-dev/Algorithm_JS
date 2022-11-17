@@ -30,7 +30,6 @@ function solution(N, treeInfo) {
     });
   };
 
-  if (N === 1) return 0;
   const tree = Array.from({ length: N + 1 }, () => []);
   treeInfo.forEach((info) => {
     tree[info[0]].push([info[1], info[2]]);
@@ -40,7 +39,7 @@ function solution(N, treeInfo) {
   distance[1] = 0;
   dfs(1, 0);
 
-  let maxIndex = -1;
+  let maxIndex = 0;
   let maxDist = 0;
   distance.forEach((v, i) => {
     if (maxDist < v) {
