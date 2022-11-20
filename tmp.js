@@ -1,24 +1,17 @@
-makeMap(bridge, nowStep, isSafe) {
-    const map = [[], []];
-    const nowSpace = bridge[nowStep][SPACE[direction]];
-    for (let step = 0; step < nowStep; step++) {
-      map[0].push(PROGRESS[bridge[step][0]]);
-      map[1].push(PROGRESS[bridge[step][1]]);
-    }
+const order = ["U", "D", "U", "U", "D", "U"];
 
-    return this.plusCrurrent(map, nowSpace, direction);
-  },
+const nowMap = [[], []];
 
-  plusCrurrent(map, nowSpace, direction) {
-    if (nowSpace) {
-      map[SPACE[direction]].push(PROGRESS.true);
-      if (map[0].length > map[1].length) map[1].push(" ");
-      else if (map[0].length < map[1].length) map[0].push(" ");
-      return [map, true];
-    }
-    map[SPACE[direction]].push("X");
-    if (map[0].length > map[1].length) map[1].push(" ");
-    else if (map[0].length < map[1].length) map[0].push(" ");
+const ORDER = {
+  D: 0,
+  U: 1,
+};
 
-    return [map, false];
-  },
+order.forEach((v) => {
+  const trapZone = Object.keys(ORDER).filter((k) => k !== v)[0];
+  console.log(trapZone);
+  nowMap[ORDER[v]].push("O");
+  nowMap[ORDER[trapZone]].push(" ");
+});
+
+console.log(nowMap);
