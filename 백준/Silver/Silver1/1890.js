@@ -37,7 +37,6 @@ function solution(N, board) {
 
   const dp = Array.from(Array(N), () => Array(N).fill(BigInt(-1)));
   const answer = dfs(0, 0);
-  console.log(dp);
 
   return answer.toString();
 }
