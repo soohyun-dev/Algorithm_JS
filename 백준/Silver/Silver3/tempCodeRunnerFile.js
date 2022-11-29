@@ -1,2 +1,1 @@
-
-  words.forEach((v) => {
+././index.txt

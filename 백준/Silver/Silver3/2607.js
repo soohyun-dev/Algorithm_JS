@@ -1,5 +1,5 @@
 const input = require("fs")
-  .readFileSync("././index.txt")
+  .readFileSync("/dev/stdin")
   .toString()
   .trim()
   .split("\n");
@@ -9,33 +9,39 @@ input.shift();
 const [...input_words] = input.map((v) => v.trim());
 
 function solution(T, words) {
-  const targetDict = {};
-  const targetLength = words[0].length;
+  const dict = {};
+  const target = words[0].split("");
   let result = 0;
-  words[0].split("").forEach((v) => {
-    if (targetDict[v]) targetDict[v] += 1;
-    else targetDict[v] = 1;
-  });
-
+  for (let i = 65; i <= 90; i++) dict[String.fromCharCode([i])] = 0;
+  const keys = Object.keys(dict);
   words = words.splice(1);
-  words.forEach((v) => {
+
+  target.forEach((letter) => {
+    dict[letter] += 1;
+  });
+  words.forEach((word) => {
+    const copyDict = { ...dict };
     let cnt = 0;
-    if (v.length <= targetLength + 1 && v.length >= targetLength - 1) {
-      const vDict = {};
-      v.split("").forEach((v) => {
-        if (vDict[v]) vDict[v] += 1;
-        else vDict[v] = 1;
-      });
-      const vSET = [...new Set(v)];
+    let store = [];
+    word.split("").forEach((letter) => {
+      copyDict[letter] -= 1;
+    });
+    keys.forEach((key) => {
+      if (0 !== copyDict[key]) {
+        cnt += 1;
+        store.push(copyDict[key]);
+      }
+    });
 
-      vSET.forEach((v) => {
-        if (targetDict[v]) cnt += vDict[v];
-      });
-    }
-
-    console.log(v, cnt);
-    if (Math.abs(targetLength - cnt) <= 1 && Math.abs(v.length - cnt) <= 1)
-      result += 1;
+    if (cnt === 2) {
+      if (
+        (store[0] === 1 && store[1] === -1) ||
+        (store[0] === -1 && store[1] === 1)
+      )
+        result += 1;
+    } else if (cnt === 1) {
+      if (store[0] === 1 || store[0] === -1) result += 1;
+    } else if (cnt === 0) result += 1;
   });
 
   return result;
