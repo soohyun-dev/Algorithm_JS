@@ -68,7 +68,6 @@ function solution(N, M, board) {
 
   const visited = {};
   visited[`${redBall[0]}${redBall[1]}${blueBall[0]}${blueBall[1]}`] = true;
-
   const [C, dir] = bfs(...[...redBall, ...blueBall]);
   if (C === -1) console.log(-1);
   else {
