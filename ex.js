@@ -1,1 +1,3 @@
-10 1 10 2 1
+const a = 123;
+
+console.log([...a.toString()].includes("1"));
