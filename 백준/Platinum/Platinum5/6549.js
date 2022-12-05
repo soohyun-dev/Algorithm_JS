@@ -7,30 +7,30 @@ const input = require("fs")
 const [...input_tests] = input.map((v) => v.split(" ").map(Number));
 
 function solution(tests) {
-  tests.forEach((test) => {
-    const [N, start, ...blocks] = test;
-    let MAX = 0;
+  const calculate = (stack, len, MAX) => {
+    const [target, _] = stack.pop();
     let width = 0;
-    const stack = [[start, 0]];
-    if (start !== undefined) {
+    if (stack.length === 0) width = len;
+    else width = len - stack[stack.length - 1][1] - 1;
+    MAX = Math.max(MAX, width * target);
+
+    return [stack, MAX];
+  };
+
+  tests.forEach((test) => {
+    const [N, ...blocks] = test;
+    let stack = [];
+    let MAX = 0;
+    if (blocks.length !== 0) {
       blocks.forEach((block, idx) => {
-        if (stack[stack.length - 1][0] > block) {
-          while (stack[stack.length - 1][0] > block) {
-            const [target, targetIdx] = stack.pop();
-            if (stack.length === 0) width = idx + 1;
-            else width = idx + 1 - stack[stack.length - 1][1];
-            MAX = Math.max(MAX, width * target);
-            if (stack.length === 0) break;
-          }
+        while (stack.length !== 0 && stack[stack.length - 1][0] > block) {
+          [stack, MAX] = calculate(stack, idx, MAX);
         }
-        stack.push([block, idx + 1]);
+        stack.push([block, idx]);
       });
       console.log(stack);
       while (stack.length !== 0) {
-        const [target, targetIdx] = stack.pop();
-        const rectangle = (N + 1 - targetIdx) * target;
-        if (MAX < rectangle) MAX = rectangle;
-        if (stack.length === 0) MAX = Math.max(MAX, N * target);
+        [stack, MAX] = calculate(stack, N, MAX);
       }
       console.log(MAX);
     }
@@ -38,3 +38,13 @@ function solution(tests) {
 }
 
 solution(input_tests);
+
+/*
+
+9 3 2 1 0 1 2 3 3 3 
+
+0     000
+00   0000
+000 00000
+
+*/
