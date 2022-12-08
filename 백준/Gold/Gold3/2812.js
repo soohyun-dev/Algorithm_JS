@@ -11,13 +11,15 @@ function solution(N, K, nums) {
     stack.pop();
     return [stack, K - 1];
   };
+
   let stack = [];
   nums.split("").forEach((num) => {
-    while (K > 0 && stack.length !== 0 && stack[stack.length - 1] < +num) {
+    while (K > 0 && stack[stack.length - 1] < +num) {
       [stack, K] = del(stack, K);
     }
     stack.push(+num);
   });
+
   while (K !== 0) {
     [stack, K] = del(stack, K);
   }

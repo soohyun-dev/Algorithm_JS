@@ -1,5 +1,7 @@
-const dict = {};
-const arr = [1, 23, 4];
-dict[arr] = 1;
+let arr = [1, 2, 3, 4];
 
-console.log(dict);
+arr = arr.map((v) => {
+  if (v > 2) return 1;
+});
+
+console.log(arr);
