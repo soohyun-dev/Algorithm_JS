@@ -1,7 +1,4 @@
-let arr = [1, 2, 3, 4];
+const regex = /^[가-힣|a-z|A-Z|]/;
 
-arr = arr.map((v) => {
-  if (v > 2) return 1;
-});
-
-console.log(arr);
+let a = "ㅇ";
+console.log(regex.test(a));
