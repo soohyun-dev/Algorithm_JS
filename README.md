@@ -5,7 +5,7 @@
    [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=bmy1320)](https://solved.ac/bmy1320/)
 
 
-  <h3>최장스트릭 332일 (2022-09-02 기준) </h3>
+  <h3>최장스트릭 429일 (2022-12-08 기준) </h3>
   <br/><br/>
   알고리즘 풀이를 저장하는 공간입니다.
 
