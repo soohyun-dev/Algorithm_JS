@@ -4,34 +4,48 @@ const input = require("fs")
   .trim()
   .split("\n");
 
-let [input_T, ...input_lines] = input;
-input_lines = input_lines.map((v) => v.split(" ").map(Number));
+let [input_T, ...input_lines] = input.map((v) => v.split(" ").map(Number));
 
 function solution(T, lines) {
-  const record = Array.from({ length: T }).fill(0);
-  const deleteLine = Array.from({ length: T }, () => []);
-  let MAX = 0;
-
-  lines = lines.sort((a, b) => a[0] - b[0]);
-  lines.forEach((_, idx) => {
-    for (let j = 0; j < T; j++) {
-      if (record[idx] < record[j] && lines[j][1] < lines[idx][1]) {
-        record[idx] = record[j];
-        deleteLine[idx] = [...deleteLine[j]];
-      }
+  const binarySearch = (target, left, right) => {
+    while (left < right) {
+      const mid = ~~((left + right) / 2);
+      if (LIS[mid] < target) left = mid + 1;
+      else right = mid;
     }
-    deleteLine[idx].push(idx);
-    record[idx] += 1;
-    if (record[idx] > MAX) {
-      MAX = record[idx];
-      target = idx;
+    return right;
+  };
+  lines.sort((a, b) => a[0] - b[0]);
+  const place = Array.from({ length: T }, () => [0, 0]).fill(
+    [lines[0][1], 0],
+    0,
+    1
+  );
+  const dict = {};
+  const LIS = [];
+  let result = [];
+
+  lines.forEach((line, idx) => {
+    place[idx][0] = line[1];
+    dict[line[1]] = line[0];
+    if (LIS.length === 0 || LIS[LIS.length - 1] < line[1]) {
+      place[idx][1] = LIS.length;
+      LIS.push(line[1]);
+    } else {
+      const changePlace = binarySearch(line[1], 0, LIS.length - 1);
+      LIS[changePlace] = line[1];
+      place[idx][1] = changePlace;
     }
   });
 
-  console.log(T - MAX);
-  lines.forEach((v, i) => {
-    if (!deleteLine[target].includes(i)) console.log(v[0]);
-  });
+  let inclusion = LIS.length - 1;
+  for (let i = T - 1; i >= 0; i--) {
+    if (place[i][1] === inclusion) inclusion -= 1;
+    else result.push(dict[place[i][0]]);
+  }
+
+  console.log(result.length);
+  for (let j = result.length - 1; j >= 0; j--) console.log(result[j]);
 }
 
 solution(Number(input_T), input_lines);
