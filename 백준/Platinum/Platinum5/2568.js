@@ -1,5 +1,5 @@
 const input = require("fs")
-  .readFileSync("/dev/stdin")
+  .readFileSync("././index.txt")
   .toString()
   .trim()
   .split("\n");
@@ -16,13 +16,9 @@ function solution(T, lines) {
     return right;
   };
   lines.sort((a, b) => a[0] - b[0]);
-  const place = Array.from({ length: T }, () => [0, 0]).fill(
-    [lines[0][1], 0],
-    0,
-    1
-  );
+  const place = Array.from({ length: T }, () => [0, 0]);
   const dict = {};
-  const LIS = [];
+  let LIS = [];
   let result = [];
 
   lines.forEach((line, idx) => {
@@ -30,7 +26,7 @@ function solution(T, lines) {
     dict[line[1]] = line[0];
     if (LIS.length === 0 || LIS[LIS.length - 1] < line[1]) {
       place[idx][1] = LIS.length;
-      LIS.push(line[1]);
+      LIS[LIS.length] = line[1];
     } else {
       const changePlace = binarySearch(line[1], 0, LIS.length - 1);
       LIS[changePlace] = line[1];
@@ -41,11 +37,11 @@ function solution(T, lines) {
   let inclusion = LIS.length - 1;
   for (let i = T - 1; i >= 0; i--) {
     if (place[i][1] === inclusion) inclusion -= 1;
-    else result.push(dict[place[i][0]]);
+    else result[result.length] = dict[place[i][0]];
   }
 
   console.log(result.length);
   for (let j = result.length - 1; j >= 0; j--) console.log(result[j]);
 }
 
-solution(Number(input_T), input_lines);
+solution(input_T, input_lines);
