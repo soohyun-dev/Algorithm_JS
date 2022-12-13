@@ -33,7 +33,6 @@ function solution(T, lines) {
       place[idx][1] = changePlace;
     }
   });
-
   let inclusion = LIS.length - 1;
   for (let i = T - 1; i >= 0; i--) {
     if (place[i][1] === inclusion) inclusion -= 1;

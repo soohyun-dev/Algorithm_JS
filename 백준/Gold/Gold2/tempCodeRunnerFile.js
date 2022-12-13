@@ -1,1 +1,1 @@
-././index.txt
+ if (nowboard[mx + drX][my + drY] !== 0) break;
