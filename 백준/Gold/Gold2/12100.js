@@ -1,10 +1,9 @@
-const { exit } = require('process');
-
-const input = require('fs').readFileSync('././index.txt').toString().trim().split('\n');
+const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
 
 const [input_N, ...input_board] = input.map((v) => v.trim().split(' ').map(Number));
 
 function solution(N, board) {
+  const direction = [0, 1, 2, 3];
   const dr_x = [-1, 0, 1, 0];
   const dr_y = [0, 1, 0, -1];
 
@@ -39,26 +38,22 @@ function solution(N, board) {
         }
       }
     }
-    for (let i = 0; i < 4; i++) {
+    direction.forEach((dr) => {
       if (cnt < 4) {
-        dfs(i, cnt + 1, [...nowBoard]);
+        const copy = JSON.parse(JSON.stringify(nowBoard));
+        dfs(dr, cnt + 1, copy);
       }
-    }
+    });
   };
 
   const check = (i, j, order) => {
-    return (
-      i + dr_x[order] < 0 || i + dr_x[order] >= N || j + dr_y[order] < 0 || j + dr_y[order] >= N
-    );
+    return i + dr_x[order] < 0 || i + dr_x[order] >= N || j + dr_y[order] < 0 || j + dr_y[order] >= N;
   };
 
   const move = (x, y, drX, drY, nowboard, visited) => {
     let [mx, my] = [x, y];
-    while (
-      nowboard[mx + drX][my + drY] === 0 ||
-      nowboard[mx + drX][my + drY] === nowboard[mx][my]
-    ) {
-      if (nowboard[mx + drX][my + drY] === nowboard[mx][my]) {
+    while (nowboard[mx + drX][my + drY] === 0 || nowboard[mx + drX][my + drY] === nowboard[mx][my]) {
+      if (nowboard[mx + drX][my + drY] === nowboard[mx][my] && nowboard[mx][my] !== 0) {
         if (visited[`${mx + drX}${my + drY}`] === undefined) {
           nowboard[mx + drX][my + drY] *= 2;
           nowboard[mx][my] = 0;
@@ -71,7 +66,6 @@ function solution(N, board) {
       } else {
         nowboard[mx + drX][my + drY] = nowboard[mx][my];
         nowboard[mx][my] = 0;
-        MAX = Math.max(MAX, nowboard[mx + drX][my + drY]);
         [mx, my] = [mx + drX, my + drY];
       }
       if (mx + drX < 0 || mx + drX >= N || my + drY < 0 || my + drY >= N) break;
@@ -79,15 +73,17 @@ function solution(N, board) {
 
     return [nowboard, visited];
   };
+
   let MAX = 0;
   board.forEach((v) => {
     MAX = Math.max(MAX, ...v);
   });
-  for (let i = 0; i < 4; i++) {
+  direction.forEach((dr) => {
     const copy = JSON.parse(JSON.stringify(board));
-    dfs(i, 0, copy);
-  }
+    dfs(dr, 0, copy);
+  });
   if (N === 1) return board[0][0];
+
   return MAX;
 }
 
