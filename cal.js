@@ -27,6 +27,8 @@
 //     } else this.getUserInput();
 //   }
 
+const a = 1;
+
 //   createResult() {
 //     const [ball, strike] = this.getCnt();
 //     let result = "";
