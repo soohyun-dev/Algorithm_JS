@@ -1,4 +1,4 @@
-const input = require('fs').readFileSync('././index.txt').toString().trim();
+const input = require('fs').readFileSync('/dev/stdin').toString().trim();
 const log = console.log;
 
 function solution(N) {

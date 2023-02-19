@@ -33,7 +33,6 @@ function solution(N, M, T, nums, orders) {
     let del = false;
     let [sum, cnt] = [0, 0];
 
-    log(nums);
     for (let i = 0; i < N; i++) {
       for (let j = 0; j < M; j++) {
         if (!nums[i][j]) continue;

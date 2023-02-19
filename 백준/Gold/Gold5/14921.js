@@ -4,7 +4,6 @@
  */
 
 const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
-
 const log = console.log;
 
 function solution(N, A) {
@@ -18,10 +17,8 @@ function solution(N, A) {
     }
   }
 
-  if (divPoint === 0) {
-    // 모두 양수일 때
-    return A[0] + A[1];
-  }
+  // 모두 양수일 때
+  if (divPoint === 0) return A[0] + A[1];
 
   if (divPoint > 0) {
     // 음수 끝에서 두개 초기값으로
