@@ -1,23 +1,26 @@
-const input = require("fs")
-  .readFileSync("/dev/stdin")
+const input = require('fs')
+  .readFileSync('././index.txt')
   .toString()
   .trim()
-  .split("\n")
-  .map((v) => v.split(" ").map(Number));
+  .split('\n')
+  .map((v) => v.split(' ').map(Number));
 
-const [N, d, k, c] = input.shift();
-const sushi = input.map((v) => Number(v));
+const inputNDKC = input.shift();
+const inputSushi = input.map((v) => Number(v));
+
 function solution(N, d, k, c, sushi) {
-  let [MAX, tmp] = [0, 0];
+  let choice = [];
+  let MAX = 0;
+
   for (let i = 0; i < N; i++) {
     if (i + k >= sushi.length) {
-      tmp = [...sushi.slice(i), ...sushi.slice(0, i + k - sushi.length), c];
-    } else tmp = [...sushi.slice(i, i + k), c];
-    let s_tmp = new Set(tmp);
-    let result = [...s_tmp];
-    if (result.length > MAX) MAX = result.length;
+      choice = [...sushi.slice(i), ...sushi.slice(0, i + k - sushi.length), c];
+    } else choice = [...sushi.slice(i, i + k), c];
+
+    MAX = Math.max([...new Set(choice)].length, MAX);
   }
+
   return MAX;
 }
 
-console.log(solution(N, d, k, c, sushi));
+console.log(solution(...inputNDKC, inputSushi));

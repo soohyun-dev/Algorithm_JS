@@ -1,4 +1,2 @@
-  if (N === 1) {
-    console.log(1);
-    exit(0);
-  }
+
+  inputMap.push(input[i].trim().split('').map(Number));
