@@ -1,1 +1,1 @@
-.trim()
+          cnt += check[rest];
