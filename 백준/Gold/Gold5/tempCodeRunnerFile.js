@@ -1,1 +1,1 @@
-          cnt += check[rest];
+././index.txt
