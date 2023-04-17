@@ -1,26 +1,8 @@
-if (current.isToggle) {
-  // navbar 외부 클릭 시 (navbar를 닫아야 함)
-  if (
-    e.target !== toggleButton &&
-    !toggleButton.contains(e.target) &&
-    e.target !== navButton &&
-    !navButton.contains(e.target)
-  ) {
-    setNavToggle({ isToggle: false, stateName: 'toggle' });
-  }
-
-  // 토글 버튼 클릭 시 (navbar를 닫아야 함)
-  if (toggleButton.contains(e.target)) {
-    setNavToggle({ isToggle: false, stateName: 'toggle' });
-  }
-
-  return;
+try {
+  setTimeout(function () {
+    throw Error('에러 발생');
+  }, 3000);
+} catch (err) {
+  console.log('에러 핸들링: ' + err.message);
 }
-
-// 토글이 안 되어 있는 상황일 때(=navbar가 닫혀 있는 상황일 때)
-if (!current.isToggle) {
-  if (toggleButton.contains(e.target)) {
-    setNavToggle({ isToggle: true, stateName: 'toggle' });
-  }
-  return;
-}
+console.log('코드 종료.');

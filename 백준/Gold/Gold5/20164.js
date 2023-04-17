@@ -7,6 +7,7 @@ function solution(N) {
     number.split('').forEach((num) => {
       if (+num % 2 !== 0) tmp += 1;
     });
+
     if (number.length === 1) {
       MIN = Math.min(tmp, MIN);
       MAX = Math.max(tmp, MAX);
@@ -28,10 +29,10 @@ function solution(N) {
   };
 
   let [MIN, MAX] = [Infinity, -Infinity];
-  transform(N, 0);
-  log(MIN, MAX);
 
-  return;
+  transform(N, 0);
+
+  log(MIN, MAX);
 }
 
 solution(input);
